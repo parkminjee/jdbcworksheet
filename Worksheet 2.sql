@@ -1,0 +1,35 @@
+DROP TABLE book CASCADE CONSTRAINT;
+DROP TABLE author CASCADE CONSTRAINT;
+DROP SEQUENCE seq_author;
+DROP SEQUENCE seq_book;
+
+CREATE TABLE author (
+  id	    NUMBER(10),
+  name      VARCHAR2(50) NOT NULL,
+  bio       VARCHAR2(500),
+  PRIMARY KEY(id)	
+);
+
+CREATE TABLE book (
+  id	     NUMBER(10),
+  title     VARCHAR2(50) NOT NULL,
+  pubs      VARCHAR2(100),
+  pub_date  DATE,
+  author_id NUMBER(10),
+  PRIMARY KEY(id),
+  CONSTRAINT c_book_fk FOREIGN KEY (author_id)
+  REFERENCES author(id)
+  ON DELETE CASCADE  
+);
+
+CREATE SEQUENCE seq_book
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 1000000;
+
+CREATE SEQUENCE seq_author
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 1000000;
+
+commit;
